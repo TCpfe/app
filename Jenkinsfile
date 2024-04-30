@@ -4,7 +4,7 @@ pipeline {
         DOCKERHUB_USERNAME = 'balkissd'
         // Uncomment and modify the following lines if needed
         // STAGING_TAG = "${DOCKERHUB_USERNAME}/angular:v1.0.0"
-        // SEMGREP_APP_TOKEN = '1c87866c63498142b962151e4b3f762e2d7b7b5985048391c299968d474708b8'
+         SEMGREP_APP_TOKEN = '02c49e2911421009cc385a2fdc1b1bc7cd56c1dbb9e6db7d107f79ef627adbfe'
         // REPORT_PATH = 'zap-reports'
         // REPORT_NAME = 'report.html'
     }
@@ -38,6 +38,11 @@ pipeline {
                     sh 'nodejsscan --json .'
                 }
                 }
+            }
+        }
+        stage('Analysis with SEMGREP') {
+            steps {
+                sh "docker run -e SEMGREP_APP_TOKEN=${SEMGREP_APP_TOKEN} --rm -v \${PWD}:/src semgrep/semgrep semgrep ci "
             }
         }
     }
