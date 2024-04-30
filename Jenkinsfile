@@ -22,6 +22,7 @@ pipeline {
          stage('NPM Build') {
             steps {
                 script {
+                    sh 'cd webapp'
                     sh 'npm cache clean --force'
                     sh 'npm install --legacy-peer-deps --verbose'
                     sh 'npm run build'
