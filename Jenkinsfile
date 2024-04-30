@@ -19,12 +19,10 @@ pipeline {
                 }
             }
         }
-         stage('NPM Build') {
+        stage('Install Dependencies') {
             steps {
-                script {
-                    sh 'cd /var/lib/jenkins/workspace/App/webapp/'
-                    sh 'npm cache clean --force'
-                    sh 'npm install '
+                dir('/var/lib/jenkins/workspace/App/webapp/') {
+                    sh 'npm install'
                     sh 'npm run build'
                 }
             }
