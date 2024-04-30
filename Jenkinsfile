@@ -22,7 +22,7 @@ pipeline {
          stage('NPM Build') {
             steps {
                 script {
-                    sh 'cd /var/lib/jenkins/workspace/App/webapp'
+                    sh 'cd /var/lib/jenkins/workspace/App/webapp/'
                     sh 'npm cache clean --force'
                     sh 'npm install '
                     sh 'npm run build'
