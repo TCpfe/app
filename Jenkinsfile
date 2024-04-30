@@ -22,8 +22,21 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 dir('/var/lib/jenkins/workspace/App/webapp/') {
+                    sh 'npm cache clean --force'
                     sh 'npm install'
                     sh 'npm run build'
+                    sh 'npm test'
+                }
+            }
+        }
+         stage('Run Tests') {
+            steps {
+                script { 
+                 
+                def appPath = "/var/lib/jenkins/workspace/Front"
+                docker.image('opensecurity/nodejsscan:latest').inside('--privileged -u root:root') {
+                    sh 'nodejsscan --json .'
+                }
                 }
             }
         }
