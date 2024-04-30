@@ -19,5 +19,14 @@ pipeline {
                 }
             }
         }
+         stage('NPM Build') {
+            steps {
+                script {
+                    sh 'npm cache clean --force'
+                    sh 'npm install --legacy-peer-deps --verbose'
+                    sh 'npm run build'
+                }
+            }
+        }
     }
 }
